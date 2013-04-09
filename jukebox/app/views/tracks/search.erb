@@ -3,6 +3,7 @@
 	<li><%= elem.title %></li>
 	<li><%= elem.duration/60000 %></li>
 	<li><img src = '<%= elem.artwork_url%>'/></li>
-	
+	<td><a href="/play/<%= elem.id %>"><%= elem.title%></a></td>
+
 
 <% end %>

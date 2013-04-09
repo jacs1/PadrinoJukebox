@@ -21,8 +21,11 @@ Jukebox::App.controllers :tracks do
   # end
   
   get :play do
-
-  end
+    @track = Track.find(params[:id]) 
+    client = Soundcloud.new(:client_id => '78d62fc09316b60c8278998d5b8268db') 
+    @sound_cloud_widget = client.get('/oembed', :url => @track.player_url)['html']
+    render 'tracks/play'
+  end 
 
   get :search do
     render 'tracks/search'
@@ -36,7 +39,5 @@ Jukebox::App.controllers :tracks do
   post :search do
     @results = Track.search_tracks(params[:searchterm])
     render 'tracks/search'
-    # @results = Track.find(params[:searchterm]) client = Soundcloud.new(:client_id => '78d62fc09316b60c8278998d5b8268db') @sound_cloud_widget = client.get('/oembed', :url => @track.player_url)['html']
-    # binding.pry
     end
 end
