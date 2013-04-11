@@ -20,20 +20,19 @@ Jukebox::App.controllers :tracks do
   #   'Hello world!'
   # end
   
-  get :play do
-    @track = Track.find(params[:id]) 
-    client = Soundcloud.new(:client_id => '78d62fc09316b60c8278998d5b8268db') 
-    @sound_cloud_widget = client.get('/oembed', :url => @track.player_url)['html']
-    render 'tracks/play'
-  end 
-
+  get :play, :with => :id do
+   @track = Track.find_in_soundcloud(params[:id]).first
+   client = Soundcloud.new(:client_id => '78d62fc09316b60c8278998d5b8268db') 
+   @sound_cloud_widget = client.get('/oembed', :url => @track.uri)['html']
+   render 'tracks/play'
+  end
+  
   get :search do
     render 'tracks/search'
   end
 
   get :index do
     render 'tracks/index'
-
   end
 
   post :search do

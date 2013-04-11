@@ -1,9 +1,9 @@
 <h1> Search </h1>
+<link href='main.css' rel='stylesheet'>
 <% @results.each do |elem| %>
 	<li><%= elem.title %></li>
 	<li><%= elem.duration/60000 %></li>
 	<li><img src = '<%= elem.artwork_url%>'/></li>
-	<td><a href="/play/<%= elem.id %>"><%= elem.title%></a></td>
-
-
+	<td><%= link_to elem.title, url_for(:tracks, :play, :id => elem.id) %> </td>
+	
 <% end %>
